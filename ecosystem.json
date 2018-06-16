@@ -1,0 +1,21 @@
+{
+  "name": "vue-ssr",
+  "script": "npm",
+  "args": ["start"],
+  "cwd": "./",
+  "watch": [
+    "bin",
+    "routers"
+  ],
+  "ignore_watch": [
+    "node_modules",
+    "log",
+    "public"
+  ],
+  "error_file": "./log/app-err.log",
+  "out_file": "./log/app-out.log",
+  "env": {
+    "NODE_ENV": "production",
+    "PORT": 8080
+  }
+}
