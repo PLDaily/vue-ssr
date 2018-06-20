@@ -1,19 +1,15 @@
 <template>
   <div class="container">
-    <h1>index</h1>
-    <pre>
-    movieListData = {{JSON.stringify(movieListData, null, 2)}}
-    </pre>
+    <list v-for="(data, index) in movieListData.subjects" :key="index" :data="data" />
   </div>
 </template>
 <script>
 import Vue from 'vue'
 import '@/assets/css/index.scss'
+import List from '@/components/List'
 
 export default {
   name: 'Index',
-  components: {
-  },
   data () {
     return {
       index: true
@@ -26,18 +22,15 @@ export default {
     })
   },
   title () {
-    return 'top250'
+    return this.movieListData.title
+  },
+  components: {
+    List
   },
   computed: {
     movieListData () {
       return this.$store.state.data
     }
-  },
-  mounted () {
-    console.log('index')
-    console.log(this.$store.state)
-  },
-  methods: {
   }
 }
 </script>

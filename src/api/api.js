@@ -16,8 +16,6 @@ export default {
     })
   },
   getMovieDetail: id => {
-    console.log(id)
-    console.log(11111)
     return axios.request({
       baseURL: config.apiurl,
       url: `/movie/subject/${id}`,

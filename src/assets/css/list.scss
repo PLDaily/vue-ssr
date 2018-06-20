@@ -1,0 +1,30 @@
+.list {
+  display: flex;
+  height: 200px;
+  padding: 25px;
+  margin: 0 25px;
+  box-sizing: border-box;
+  flex-direction: row;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+  .image {
+    height: 150px;
+    width: 150px;
+    overflow: hidden;
+    margin-right: 20px;
+    img {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .content {
+    align-self: flex-start;
+    h1 {
+      font-size: 20px;
+    }
+  }
+}
