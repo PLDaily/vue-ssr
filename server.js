@@ -6,9 +6,11 @@ const favicon = require('serve-favicon')
 const compression = require('compression')
 const microcache = require('route-cache')
 const log4js = require('log4js')
+const axios = require('axios')
 const logger = log4js.getLogger('error')
 const resolve = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require('vue-server-renderer')
+const config = require('./config.js')
 
 const isProd = process.env.NODE_ENV === 'production'
 const useMicroCache = process.env.MICRO_CACHE !== 'false'
@@ -54,6 +56,8 @@ log4js.configure({
 })
 
 app.use(log4js.connectLogger(log4js.getLogger('http')))
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
 function createRenderer (bundle, options) {
   // https://github.com/vuejs/vue/blob/dev/packages/vue-server-renderer/README.md#why-use-bundlerenderer
@@ -151,11 +155,47 @@ function render (req, res) {
   })
 }
 
+app.get('/movie/top250', (req, res) => {
+  const { start, count } = req.query
+  axios.request({
+    baseURL: config.apiurl,
+    url: '/movie/top250',
+    params: {
+      start,
+      count
+    },
+    method: 'get'
+  }).then(result => {
+    return res.send({
+      data: result.data
+    })
+  }).catch(err => {
+    logger.error(`/movie/top250 error`, err)
+    throw new Error(err)
+  })
+})
+
+app.get('/movie/detail', (req, res) => {
+  const { id } = req.query
+  axios.request({
+    baseURL: config.apiurl,
+    url: `/movie/subject/${id}`,
+    method: 'get'
+  }).then(result => {
+    return res.json({
+      data: result.data
+    })
+  }).catch(err => {
+    logger.error(`/movie/detail error`, err)
+    throw new Error(err)
+  })
+})
+
 app.get('*', isProd ? render : (req, res) => {
   readyPromise.then(() => render(req, res))
 })
 
-const port = process.env.PORT || 8000
+const port = process.env.PORT || config.port
 app.listen(port, () => {
   console.log(`server started at localhost:${port}`)
 })

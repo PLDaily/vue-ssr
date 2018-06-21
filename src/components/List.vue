@@ -1,5 +1,5 @@
 <template>
-  <a class="list" :href="'/detail/' + data.id">
+  <router-link class="list" :to="'/detail/' + data.id">
     <div class="image">
       <img :src="data.images.large" />
     </div>
@@ -7,7 +7,7 @@
       <h1>{{data.title}}</h1>
       <div class="rating">豆瓣评分: <span>{{data.rating.average}}</span></div>
     </div>
-  </a>
+  </router-link>
 </template>
 <script>
 import '@/assets/css/list.scss'

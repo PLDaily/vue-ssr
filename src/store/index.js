@@ -8,7 +8,8 @@ Vue.use(Vuex)
 export function createStore () {
   return new Vuex.Store({
     state: {
-      data: {}
+      list: {},
+      detail: {}
     },
     actions,
     mutations

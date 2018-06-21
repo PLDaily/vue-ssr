@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     movieDetailData () {
-      return this.$store.state.data
+      return this.$store.state.detail
     }
   }
 }
